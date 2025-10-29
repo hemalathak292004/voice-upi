@@ -1,0 +1,79 @@
+{
+  "balance": 99800,
+  "contacts": [
+    {
+      "name": "Ramesh",
+      "mobile": "9999999999",
+      "upi": "ramesh@upi"
+    },
+    {
+      "name": "Sita",
+      "mobile": "8888888888",
+      "upi": "sita@upi"
+    },
+    {
+      "name": "Divyadharshini S",
+      "mobile": "9025106761",
+      "upi": "divyadharshini19cse@okicici"
+    },
+    {
+      "name": "John Doe",
+      "mobile": "9876543210",
+      "upi": "johndoe@upi"
+    },
+    {
+      "name": "Jane Smith",
+      "mobile": "9876543211",
+      "upi": "janesmith@upi"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1761582802035,
+      "sender": "You",
+      "receiver": "Divyadharshini S",
+      "amount": 500,
+      "date": 1761582802035
+    },
+    {
+      "id": 1761629254647,
+      "sender": "You",
+      "receiver": "Ramesh",
+      "amount": 202,
+      "date": 1761629254647
+    },
+    {
+      "id": 1761634315674,
+      "sender": "You",
+      "receiver": "Divyadharshini S",
+      "amount": 200,
+      "date": 1761634315674
+    }
+  ],
+  "users": [
+    {
+      "name": "yogeswari M",
+      "mobile": "8667024320",
+      "upi": "yogeswari1805@okaxis",
+      "createdAt": 1761580202636,
+      "lastLogin": 1761631278603,
+      "isVerified": true
+    },
+    {
+      "name": "Test User",
+      "mobile": "9876543210",
+      "upi": "testuser@upi",
+      "createdAt": 1761629146455,
+      "lastLogin": 1761629146455,
+      "isVerified": true
+    },
+    {
+      "name": "POOJA V",
+      "mobile": "9080887596",
+      "upi": "pooja@upi",
+      "createdAt": 1761710358138,
+      "lastLogin": 1761710358138,
+      "isVerified": true
+    }
+  ]
+}

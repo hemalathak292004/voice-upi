@@ -1,0 +1,42 @@
+===========================================
+SET UP REAL GOOGLE CONTACTS - 5 MINUTES
+===========================================
+
+STEP 1: CREATE YOUR GOOGLE CREDENTIALS
+----------------------------------------
+
+1. Go to: https://console.cloud.google.com/
+2. Create new project called "Voice UPI"
+3. Enable "Google People API"
+4. Create API Key (credentials section)
+5. Create OAuth Client ID for Web App
+6. Add redirect URI: http://localhost:3000
+
+STEP 2: CREATE .env FILE
+-------------------------
+
+In this folder (voice-upi3/voice-upi), create a file named: .env
+
+Add these lines:
+
+REACT_APP_GOOGLE_API_KEY=paste_your_api_key_here
+REACT_APP_GOOGLE_CLIENT_ID=paste_your_client_id_here
+
+Replace the values with your actual credentials from Step 1.
+
+STEP 3: RESTART SERVER
+-----------------------
+
+Stop the server (Ctrl+C) and run: npm start
+
+STEP 4: DONE!
+-------------
+
+Now when you click "Connect Google", you'll see YOUR real contacts!
+
+===========================================
+
+Need detailed guide? Read: QUICK_SETUP_REAL_GOOGLE.md
+
+
+
