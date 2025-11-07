@@ -20,6 +20,7 @@ export default function App() {
   const [ambiguousContacts, setAmbiguousContacts] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showAmbiguity, setShowAmbiguity] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
   const loadData = () => {
     fetch("/api/getBalance").then(r => r.json()).then(d => setBalance(d.balance)).catch(() => {});
@@ -282,13 +283,30 @@ export default function App() {
               <p className="text-gray-600 mb-8">Click the microphone and say: "Send 500 to Ramesh"</p>
               
               <button
-                onClick={() => startListening(setCommand, processCommand, () => {
-                  console.log("Voice recognition completed");
-                })}
-                className="w-24 h-24 bg-gradient-to-br from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 rounded-full shadow-2xl hover:shadow-indigo-500/50 transition-all transform hover:scale-110 active:scale-95 flex items-center justify-center mx-auto mb-6"
+                onClick={() => {
+                  setIsListening(true);
+                  startListening(
+                    setCommand, 
+                    processCommand, 
+                    () => {
+                      console.log("Voice recognition completed");
+                      setIsListening(false);
+                    }
+                  );
+                }}
+                disabled={isListening}
+                className={`w-24 h-24 bg-gradient-to-br from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 rounded-full shadow-2xl hover:shadow-indigo-500/50 transition-all transform hover:scale-110 active:scale-95 flex items-center justify-center mx-auto mb-6 ${
+                  isListening ? 'animate-pulse ring-4 ring-red-500 ring-opacity-75' : ''
+                } ${isListening ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                title={isListening ? "Listening... Speak now" : "Click to start voice recognition"}
               >
-                <span className="text-5xl">🎤</span>
+                <span className="text-5xl">{isListening ? '🔴' : '🎤'}</span>
               </button>
+              {isListening && (
+                <p className="text-sm text-indigo-600 font-semibold mb-2 animate-pulse">
+                  🎙️ Listening... Speak your command now
+                </p>
+              )}
               
               {command && (
                 <div className="mt-6 p-4 bg-indigo-50 rounded-xl border border-indigo-200 max-w-md mx-auto">
