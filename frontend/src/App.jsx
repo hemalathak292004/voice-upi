@@ -5,6 +5,7 @@ import Contacts from "./components/Contacts";
 import Dashboard from "./components/Dashboard";
 import UpiPay from "./components/UpiPay";
 import { startListening, extractVoiceCommand, findMatchingContacts } from "./voiceLogic";
+import { API_BASE_URL } from "./config/api";
 
 export default function App() {
   const quickPayRef = useRef(null);
@@ -23,9 +24,9 @@ export default function App() {
   const [isListening, setIsListening] = useState(false);
 
   const loadData = () => {
-    fetch("/api/getBalance").then(r => r.json()).then(d => setBalance(d.balance)).catch(() => {});
-    fetch("/api/getTransactions").then(r => r.json()).then(d => setTransactions(d.transactions || [])).catch(() => {});
-    fetch("/api/getContacts").then(r => r.json()).then(d => setContacts(d.contacts || [])).catch(() => {});
+    fetch(`${API_BASE_URL}/api/getBalance`).then(r => r.json()).then(d => setBalance(d.balance)).catch(() => {});
+    fetch(`${API_BASE_URL}/api/getTransactions`).then(r => r.json()).then(d => setTransactions(d.transactions || [])).catch(() => {});
+    fetch(`${API_BASE_URL}/api/getContacts`).then(r => r.json()).then(d => setContacts(d.contacts || [])).catch(() => {});
   };
 
   useEffect(() => {
@@ -106,7 +107,7 @@ export default function App() {
 
     const { amount, contact } = pendingTransaction;
 
-    fetch("/api/sendMoney", {
+    fetch(`${API_BASE_URL}/api/sendMoney`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount, receiverName: contact.name })

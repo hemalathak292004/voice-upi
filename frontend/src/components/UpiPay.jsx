@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { QRCodeCanvas } from "qrcode.react";
+import { API_BASE_URL } from "../config/api";
 
 const UpiPay = forwardRef(function UpiPay(_props, ref) {
   const [pa, setPa] = useState("merchant@upi");
@@ -27,7 +28,7 @@ const UpiPay = forwardRef(function UpiPay(_props, ref) {
   const openRazorpay = async () => {
     try {
       // Create order on backend
-      const resp = await fetch('/api/createOrder', {
+      const resp = await fetch(`${API_BASE_URL}/api/createOrder`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: Number(amount) || 1 }),

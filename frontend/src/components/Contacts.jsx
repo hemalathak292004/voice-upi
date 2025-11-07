@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GoogleContacts from "./GoogleContacts";
+import { API_BASE_URL } from "../config/api";
 
 export default function Contacts({ contacts, onRefresh }) {
   const [showForm, setShowForm] = useState(false);
@@ -26,7 +27,7 @@ export default function Contacts({ contacts, onRefresh }) {
         return false;
       }
       
-      const res = await fetch("/api/validateContactUPI", {
+      const res = await fetch(`${API_BASE_URL}/api/validateContactUPI`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, mobile, upi }),
@@ -66,7 +67,7 @@ export default function Contacts({ contacts, onRefresh }) {
     }
 
     try {
-      const res = await fetch("/api/addContact", {
+      const res = await fetch(`${API_BASE_URL}/api/addContact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, mobile, upi }),
@@ -90,7 +91,7 @@ export default function Contacts({ contacts, onRefresh }) {
     if (!window.confirm(`Delete contact ${contactName}?`)) return;
     
     try {
-      const res = await fetch(`/api/deleteContact/${encodeURIComponent(contactName)}`, {
+      const res = await fetch(`${API_BASE_URL}/api/deleteContact/${encodeURIComponent(contactName)}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -113,7 +114,7 @@ export default function Contacts({ contacts, onRefresh }) {
     }));
 
     try {
-      const res = await fetch("/api/validateContactUPI", {
+      const res = await fetch(`${API_BASE_URL}/api/validateContactUPI`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

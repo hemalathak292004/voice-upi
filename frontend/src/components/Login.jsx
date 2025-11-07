@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 export default function Login({ onLogin }) {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ export default function Login({ onLogin }) {
     setError("");
     
     try {
-      const response = await fetch("/api/validateUPI", {
+      const response = await fetch(`${API_BASE_URL}/api/validateUPI`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ upi, mobile, name }),
