@@ -29,11 +29,6 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// Handle preflight OPTIONS requests
-app.options("*", (req, res) => {
-  res.sendStatus(200);
-});
-
 // Removed OTP functionality - direct UPI validation only
 // Razorpay instance (if keys available)
 let razorpay = null;
@@ -137,10 +132,19 @@ app.post("/api/validateContactUPI", (req, res) => {
 // Simplified UPI Validation API - No OTP required
 // Handle OPTIONS preflight for this route
 app.options("/api/validateUPI", (req, res) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
   res.sendStatus(200);
 });
 
 app.post("/api/validateUPI", (req, res) => {
+  console.log("POST /api/validateUPI called", {
+    method: req.method,
+    headers: req.headers,
+    body: req.body,
+  });
+
   const { upi, mobile, name } = req.body || {};
 
   if (!upi || !mobile || !name) {
@@ -321,6 +325,15 @@ app.get("/", (req, res) => {
     status: "ok",
     message: "Voice UPI Backend API",
     timestamp: new Date().toISOString(),
+  });
+});
+
+// Test endpoint for validateUPI route
+app.get("/api/validateUPI", (req, res) => {
+  res.json({
+    message: "GET method works. Use POST to validate UPI.",
+    endpoint: "/api/validateUPI",
+    methods: ["POST", "OPTIONS"],
   });
 });
 
