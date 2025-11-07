@@ -23,9 +23,16 @@ app.use(
       }
     },
     credentials: false,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(bodyParser.json());
+
+// Handle preflight OPTIONS requests
+app.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 
 // Removed OTP functionality - direct UPI validation only
 // Razorpay instance (if keys available)
@@ -128,6 +135,11 @@ app.post("/api/validateContactUPI", (req, res) => {
 });
 
 // Simplified UPI Validation API - No OTP required
+// Handle OPTIONS preflight for this route
+app.options("/api/validateUPI", (req, res) => {
+  res.sendStatus(200);
+});
+
 app.post("/api/validateUPI", (req, res) => {
   const { upi, mobile, name } = req.body || {};
 
@@ -303,8 +315,17 @@ app.post("/api/createOrder", async (req, res) => {
   }
 });
 
-const PORT = 5000;
+// Health check endpoint
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Voice UPI Backend API",
+    timestamp: new Date().toISOString(),
+  });
+});
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   ensureDB();
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
